@@ -9,10 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let emailTextFieldView = UIView()
-//
+//    let emailTextFieldView = UIView()
 
-
+    let emailTextFieldView : UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor.darkGray
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +27,8 @@ class ViewController: UIViewController {
     }
     
     func makeIUI(){
-        emailTextFieldView.backgroundColor = UIColor.darkGray
+
         view.addSubview(emailTextFieldView)
-        
-        emailTextFieldView.layer.cornerRadius = 5
-        emailTextFieldView.layer.masksToBounds = true
-                
         // 오토레이아웃 기능을 끄는것, 반드시 설정해야지만 수동으로 레이아웃을 설정이 가능함
         emailTextFieldView.translatesAutoresizingMaskIntoConstraints = false
         
