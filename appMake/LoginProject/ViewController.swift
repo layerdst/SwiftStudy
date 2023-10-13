@@ -9,39 +9,84 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//    let emailTextFieldView = UIView()
-
-    let emailTextFieldView : UIView = {
-       let view = UIView()
-        view.backgroundColor = UIColor.darkGray
+    private lazy var emailTextView : UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         view.layer.cornerRadius = 5
-        view.layer.masksToBounds = true
+        view.clipsToBounds = true
         return view
     }()
     
+    private lazy var emailInfoLabel : UILabel = {
+        let label = UILabel()
+        label.text = "이메일 주소 또는 전화번호"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        return label
+    }()
+    
+    private lazy var emailTextField : UITextField = {
+        var tf = UITextField()
+        tf.frame.size.height = 48
+        tf.backgroundColor = .clear
+        tf.textColor = .white
+        tf.tintColor = .white
+        
+        // 영문자 항상 소문자로 시작하는 설정
+        tf.autocapitalizationType = .none
+        
+        // 자동수저
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.keyboardType = .emailAddress
+        return tf
+    }()
+    
+    
+    private lazy var passwordTextFieldView : UIView = {
+        let view = UIView()
+        view.frame.size.height = 48
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = 5
+        view.clipsToBounds = true
+        return view
+        
+    }()
+    
+    private lazy var passwordInfoLabel : UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        return label
+    }()
+    
+    private let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        tf.frame.size.height = 48
+        tf.backgroundColor = .clear
+        tf.textColor = .white
+        tf.tintColor = .white
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.isSecureTextEntry = true
+        tf.clearsOnBeginEditing = false
+        return tf
+    }()
+    
+    
+    
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeIUI()
-        
-        
+
     }
     
-    func makeIUI(){
-
-        view.addSubview(emailTextFieldView)
-        // 오토레이아웃 기능을 끄는것, 반드시 설정해야지만 수동으로 레이아웃을 설정이 가능함
-        emailTextFieldView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // 텍스트뷰 화면 배치
-        // leadingAnchor : 화면 좌측에서
-        // trailingAnchor : 화면 우측
-        // topAnchor : 화면 상단
-        // heightAnchor : 뷰 높이
-        emailTextFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        emailTextFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
-        
-        emailTextFieldView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-        emailTextFieldView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    func makeUI(){
         
     }
 
