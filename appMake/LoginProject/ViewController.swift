@@ -122,6 +122,19 @@ class ViewController: UIViewController {
     }()
     
     
+    // 비밀번호 재설정
+    private let passwordResetBtn : UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .clear
+        btn.setTitle("비밀번호 재설정", for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        btn.addTarget(self, action: #selector(resetBtnTapped), for: .touchUpInside)
+        return btn
+    }()
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
@@ -131,13 +144,16 @@ class ViewController: UIViewController {
     }
     
     func makeUI(){
+        view.backgroundColor = UIColor.black
         view.addSubview(stackView)
+        view.addSubview(passwordResetBtn)
         
         emailInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordSecureButton.translatesAutoresizingMaskIntoConstraints = false
+        passwordResetBtn.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -189,7 +205,18 @@ class ViewController: UIViewController {
             stackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor, constant: -30),
             stackView.heightAnchor.constraint(
-                equalToConstant: textViewHeight * 3 + 36)
+                equalToConstant: textViewHeight * 3 + 36),
+            
+            passwordResetBtn.topAnchor.constraint(
+                equalTo: stackView.bottomAnchor, constant: 10),
+            passwordResetBtn.leadingAnchor.constraint(
+                equalTo: stackView.leadingAnchor, constant: 30),
+            passwordResetBtn.trailingAnchor.constraint(
+                equalTo: stackView.trailingAnchor, constant: -30),
+            passwordResetBtn.heightAnchor.constraint(
+                equalToConstant: textViewHeight)
+            
+            
         ])
         
         // NSLayoutConstraint active API 를 활용하여 사용할 수 있음
@@ -250,6 +277,26 @@ class ViewController: UIViewController {
 //            equalTo:emailTextView.bottomAnchor, constant: 2).isActive = true
         
         
+    }
+    
+    @objc func resetBtnTapped(){
+        let alert = UIAlertController(title: "비밀번호 바꾸기", message: "비밀번호를 바꾸시겠습니까?", preferredStyle: .alert)
+        
+        let success = UIAlertAction(title: "확인", style: .default) { action in
+            print("확인버튼")
+        }
+        
+        let cancel = UIAlertAction(title: "캔슬", style: .cancel){ cancel in
+            print("취소버튼이 눌렷음")
+        }
+        
+        alert.addAction(success)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true) {
+            print("alert")
+        }
+                
     }
         
 
