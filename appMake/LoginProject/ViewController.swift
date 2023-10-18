@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         btn.setTitle("표시", for: .normal)
         btn.setTitleColor( #colorLiteral(red:0.8374, green: 0.8374, blue:0.8374, alpha : 1), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        //        btn.addTarget(self, action: #selector(passwordSecureModeSetting), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(passwordSecureModeSetting), for: .touchUpInside)
         return btn
     }()
     
@@ -297,6 +297,11 @@ class ViewController: UIViewController {
             print("alert")
         }
                 
+    }
+    
+    @objc func passwordSecureModeSetting(){
+        passwordTextField.isSecureTextEntry.toggle()
+        print("표시버튼 누름")
     }
         
 
