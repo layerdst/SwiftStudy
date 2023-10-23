@@ -59,7 +59,7 @@ class FirstViewController: UIViewController {
     }
                       
     @objc func backBtnTapped () {
-    
+        dismiss(animated: true)
         
     }
 
