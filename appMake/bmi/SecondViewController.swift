@@ -14,6 +14,8 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var backBtn: UIButton!
     
     var bmi : Double?
+    var adviceString : String?
+    var bmiColor : UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,9 @@ class SecondViewController: UIViewController {
     func makeUI(){
         bmiNumberLabel.clipsToBounds = true
         bmiNumberLabel.layer.cornerRadius = 8
-        bmiNumberLabel.backgroundColor = .gray
+        bmiNumberLabel.backgroundColor = bmiColor
+        
+        adviceNumberLabel.text = adviceString
         
         backBtn.clipsToBounds = true
         backBtn.layer.cornerRadius = 5
