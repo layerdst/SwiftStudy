@@ -11,56 +11,26 @@ class ViewController: UIViewController {
 
     
     @IBOutlet weak var mainLabel: UILabel!
-    
     @IBOutlet weak var heightTextField: UITextField!
-    
     @IBOutlet weak var weightTextField: UITextField!
-    
     
     @IBOutlet weak var calculateBtn: UIButton!
     
-    var bmi : Double?
+    var bmiManager = BMICaculatorManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         makeUI()
-        
     }
     
     
     
     @IBAction func calculateBtnTapped(_ sender: UIButton) {
         guard let h = heightTextField.text, let w = weightTextField.text else { return }
-        bmi = calculateBMI(height: h , weight: w)
-        
+        bmiManager.calculateBMI(height: h , weight: w)
+        bmiManager.getBMIResult()
     }
-    
-    func calculateBMI(height : String, weight : String) -> Double {
-        guard let h = Double(height), let w = Double(weight) else {return 0.0}
-        var bmi  = w / (h * h) * 10000
-        bmi = round(bmi*10) / 10
-        print(bmi)
-        return bmi
-    }
-    
-    func getBackgroudColor() -> (UIColor, String) {
-        guard let bmi = bmi else {return (UIColor.black, "없음")}
-        switch bmi {
-        case ..<18.6 :
-            return (UIColor.blue, "저체중")
-        case 18.6..<23.0 :
-            return (UIColor.green, "미달")
-        case 23.0..<25.0 :
-            return (UIColor.yellow, "정상")
-        case 25.0..<30.0 :
-            return (UIColor.magenta, "과체중")
-        case 30.0... :
-            return (UIColor.red, "비만")
-        default : return (UIColor.black, "없음")
-        }
-    }
-    
+
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
@@ -78,8 +48,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "twoSecondVC" {
             guard let secondVC = segue.destination as? SecondViewController else {return }
-            secondVC.bmi = self.bmi
-            (secondVC.bmiColor, secondVC.adviceString) = getBackgroudColor()
+            secondVC.bmi = bmiManager.getBMI(height: heightTextField.text!, weight: weightTextField.text!)
         }
         
         heightTextField.text = ""
