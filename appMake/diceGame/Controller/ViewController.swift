@@ -12,18 +12,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var firstImgView: UIImageView!
     @IBOutlet weak var secondImgView: UIImageView!
     
-    var imgArr = [#imageLiteral(resourceName: "black1"), #imageLiteral(resourceName: "black2"), #imageLiteral(resourceName: "black3"), #imageLiteral(resourceName: "black4"), #imageLiteral(resourceName: "black5"), #imageLiteral(resourceName: "black6")]
+    var diceManager = DiceManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        firstImgView.image = diceManager.getFirstDice()
+        secondImgView.image = diceManager.getRandomDice()
     }
     
     
     @IBAction func roleBtnTapped(_ sender: UIButton) {
-        firstImgView.image = imgArr.randomElement()
-        secondImgView.image = imgArr.randomElement()
-        
+        firstImgView.image = diceManager.getRandomDice()
+        secondImgView.image = diceManager.getRandomDice()
     }
     
 
