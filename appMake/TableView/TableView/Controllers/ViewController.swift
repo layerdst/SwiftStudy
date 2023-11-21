@@ -11,8 +11,6 @@ import UIKit
 //테이블 뷰는 UITableDataSource 프로토콜을 채택해야함
 class ViewController: UIViewController {
     
-    var moviesArray : [Movie] = []
-    
     var movieDataManager = DataManager()
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,10 +20,20 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = 120
         tableView.delegate = self
+        title = "영화목록"
         
         movieDataManager.makeMovieData()
-        moviesArray = movieDataManager.getMovieData()
+      
     }
+    
+    
+    @IBAction func addBtnTapped(_ sender: UIBarButtonItem) {
+        movieDataManager.updateMovieData()
+        tableView.reloadData()
+
+    }
+    
+    
 }
 
 extension ViewController : UITableViewDataSource {
@@ -33,7 +41,9 @@ extension ViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         print(#function)
-        return moviesArray.count
+
+        return movieDataManager.getMovieData().count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,7 +52,7 @@ extension ViewController : UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = moviesArray[indexPath.row]
+        let movie = movieDataManager.getMovieData()[indexPath.row]
         cell.mainImageView.image = movie.movieImage
         cell.movieNameLabel.text = movie.movieName
         cell.descriptionLabel.text = movie.movieDescription
@@ -64,7 +74,7 @@ extension ViewController : UITableViewDelegate {
         if segue.identifier == "toDetail"{
             let detailVC = segue.destination as! DetailViewController
             let idxPath = sender as! IndexPath
-            detailVC.movieData = moviesArray[idxPath.row]
+            detailVC.movieData = movieDataManager.getMovieData()[idxPath.row]
         }
     }
 }
