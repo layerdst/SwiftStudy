@@ -12,7 +12,7 @@ struct Movie {
     let movieName : String
     let movieDescription : String
     
-    init(_ movieImage : UIImage, _ movieName : String, _ movieDescription : String){
+    init(_ movieImage : UIImage?, _ movieName : String, _ movieDescription : String){
         self.movieImage = movieImage
         self.movieName = movieName
         self.movieDescription = movieDescription

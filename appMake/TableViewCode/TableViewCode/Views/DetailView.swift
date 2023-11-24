@@ -47,8 +47,53 @@ class DetailView : UIView {
     }
     
     func setupStv(){
-        
+        [mainImgView, movieNameLabel, descriptionLabel].forEach{stv.addArrangedSubview($0)}
+        self.addSubview(stv)
     }
+    
+    override func updateConstraints() {
+        setConstraints()
+        super.updateConstraints()
+    }
+    
+    func mainImgViewConstraints(){
+        mainImgView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainImgView.heightAnchor.constraint(equalToConstant: 240),
+            mainImgView.widthAnchor.constraint(equalToConstant: 240)
+        ])
+    }
+    
+    func movieLableConstraints(){
+        movieNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            movieNameLabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    func descriptionLabelConstraints(){
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    func stvConstraints(){
+        stv.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stv.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stv.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100)
+        ])
+    }
+    
+    func setConstraints(){
+        mainImgViewConstraints()
+        movieLableConstraints()
+        descriptionLabelConstraints()
+        stvConstraints()
+    }
+    
+    
 }
 
 
