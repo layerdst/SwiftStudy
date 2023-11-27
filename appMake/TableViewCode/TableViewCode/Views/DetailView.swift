@@ -12,6 +12,7 @@ class DetailView : UIView {
     let mainImgView : UIImageView = {
         let imgView = UIImageView()
         return imgView
+        
     }()
     
     let movieNameLabel : UILabel = {

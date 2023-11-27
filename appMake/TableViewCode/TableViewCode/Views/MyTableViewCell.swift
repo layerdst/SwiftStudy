@@ -10,7 +10,6 @@ import UIKit
 class MyTableViewCell : UITableViewCell {
     let mainImgView : UIImageView = {
         let imgView = UIImageView()
-//        imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()
     
