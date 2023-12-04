@@ -9,6 +9,15 @@ import UIKit
 
 class MyTableViewCell: UITableViewCell {
     
+    var member : Member? {
+        didSet {
+            guard var member = member else {return}
+            mainImgView.image = member.memberImg
+            memberNameLabel.text = member.name
+            addreddLabel.text = member.address
+        }
+    }
+    
     let mainImgView : UIImageView = {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +85,7 @@ class MyTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         setConstraints()
+        super.updateConstraints()
     }
     
     override func layoutSubviews() {
