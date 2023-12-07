@@ -9,6 +9,30 @@ import UIKit
 
 class DetailView: UIView {
     
+    var member : Member? {
+        didSet {
+            guard var member = member else {
+                updateBtn.setTitle("SAVE", for: .normal)
+                memberIdTextField.text = "\(Member.memberNumbers)"
+                return
+            }
+            
+            mainImgView.image = member.memberImg
+            memberIdTextField.text = "\(member.memberId)"
+            nameTextField.text = member.name
+            phoneTextField.text = member.phone
+            addressTextField.text = member.address
+            
+            guard let age = member.age else {
+                ageTextField.text = ""
+                return
+            }
+            
+            ageTextField.text = "\(age)"
+            
+        }
+    }
+    
     lazy var mainImgView : UIImageView = {
         let imgView = UIImageView()
         imgView.backgroundColor = .lightGray
@@ -94,8 +118,13 @@ class DetailView: UIView {
     }()
     
     lazy var totalStv : UIStackView = {
-        let stv = UIStackView()
-        [mainImgView, memberIdStv, nameStv, ageStv, updateBtn].forEach{stv.addSubview($0)}
+        let stv = UIStackView(arrangedSubviews: [imageContrainView, memberIdStv, nameStv, ageStv, addressStv, updateBtn])
+        stv.translatesAutoresizingMaskIntoConstraints = false
+        stv.spacing = 10
+        stv.axis = .vertical
+        stv.distribution = .fill
+        stv.alignment = .fill
+        
         return stv
     }()
     
@@ -135,6 +164,12 @@ class DetailView: UIView {
     
     override init (frame : CGRect){
         super.init(frame: frame)
+        self.backgroundColor = .gray
+        setupStv()
+        mainImgViewConstraints()
+        imgContainerConstraints()
+        labelWidthConstraints()
+        stvConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -156,11 +191,27 @@ class DetailView: UIView {
         ])
     }
     
-    func stvConstraints(){
+    func labelWidthConstraints(){
         NSLayoutConstraint.activate([
-            stv.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            memberIdLabel.widthAnchor.constraint(equalToConstant: 70),
+            nameLabel.widthAnchor.constraint(equalToConstant: 70),
+            ageLabel.widthAnchor.constraint(equalToConstant: 70),
+            phoneNumLabel.widthAnchor.constraint(equalToConstant: 70),
+            addressLabel.widthAnchor.constraint(equalToConstant: 70),
         ])
     }
+    
+    func stvConstraints(){
+      
+        NSLayoutConstraint.activate([
+            totalStv.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            totalStv.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            totalStv.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            totalStv.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    
 
     
     

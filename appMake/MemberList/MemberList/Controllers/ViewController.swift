@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         
         tableViewContraints()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.rowHeight = 60
         tableView.register(MyTableViewCell.self, forCellReuseIdentifier: "MemberCell")
     }
@@ -57,6 +58,8 @@ class ViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
         ])
     }
+    
+    
 }
 
 extension ViewController : UITableViewDataSource {
@@ -70,7 +73,15 @@ extension ViewController : UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-    
-    
+}
+
+extension ViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = DetailViewController()
+        let arr = memberList.getMemberList()
+        detailVC.member = arr[indexPath.row]
+        
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
