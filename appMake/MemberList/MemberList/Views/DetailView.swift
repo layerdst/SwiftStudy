@@ -101,9 +101,11 @@ class DetailView: UIView {
         return labelSetting("주   소")
     }()
     
+    
     lazy var addressTextField : UITextField = {
         return textFieldSetting()
     }()
+    
     
     lazy var addressStv : UIStackView = {
         return stvSetting([addressLabel, addressTextField])

@@ -23,6 +23,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    lazy var plusBtn : UIBarButtonItem = {
+        let btn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusBtnTapped))
+        return btn
+    }()
+    
+    
+    @objc func plusBtnTapped(){
+        let detailVC = DetailViewController()
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
     func setNavBar(){
         title = "목록"
         let appearance = UINavigationBarAppearance()
@@ -34,7 +45,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
-//        self.navigationItem.rightBarButtonItem = self.plusBtn
+        self.navigationItem.rightBarButtonItem = self.plusBtn
     }
     
     func setUpTableView(){
