@@ -172,6 +172,7 @@ class DetailView: UIView {
         imgContainerConstraints()
         labelWidthConstraints()
         stvConstraints()
+        memberIdTextField.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -212,13 +213,13 @@ class DetailView: UIView {
             totalStv.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
         ])
     }
-    
-    
+}
 
-    
-    
-    
-    
-    
-
+extension DetailView : UITextFieldDelegate {
+    func textField(_ textField : UITextField, shouldChangeCharactersIn range : NSRange, replacementString string : String ) -> Bool {
+        if textField == memberIdTextField {
+            return false
+        }
+        return true
+    }
 }

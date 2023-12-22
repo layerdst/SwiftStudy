@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class DetailViewController : UIViewController{
     
@@ -22,9 +23,30 @@ class DetailViewController : UIViewController{
         detailView.updateBtn.addTarget(self, action: #selector(saveBtnTapped), for: .touchUpInside)
     }
     
+    func setUpImgPicker (){
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        configuration.filter = .any(of: [.images, .videos])
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated : true , completion : nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.member = member
+    }
+    
+    func setupTapGesture () {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchImgView))
+        detailView.mainImgView.addGestureRecognizer(tapGesture)
+        detailView.mainImgView.isUserInteractionEnabled = true
+    }
+    
+    @objc func touchImgView(){
+        print("touch")
+        setUpImgPicker()
     }
     
     @objc func saveBtnTapped(){
@@ -61,4 +83,21 @@ class DetailViewController : UIViewController{
     }
     
     
+}
+
+extension DetailViewController : PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        let itemProvider = results.first?.itemProvider
+        
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.detailView.mainImgView.image = image as? UIImage
+                }
+            }
+        }else {
+            print("이미지 불러옴")
+        }
+        
+    }
 }

@@ -33,6 +33,8 @@ class ViewController: UIViewController {
         let detailVC = DetailViewController()
         navigationController?.pushViewController(detailVC, animated: true)
     }
+ 
+    
     
     func setNavBar(){
         title = "목록"
@@ -47,6 +49,9 @@ class ViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.plusBtn
     }
+    
+
+    
     
     func setUpTableView(){
         
