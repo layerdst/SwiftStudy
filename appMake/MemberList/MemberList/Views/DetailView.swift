@@ -164,6 +164,11 @@ class DetailView: UIView {
         self.addSubview(totalStv)
     }
     
+    func setUpNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(moveUpAction),
+                                         name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
     override init (frame : CGRect){
         super.init(frame: frame)
         self.backgroundColor = .gray
@@ -172,7 +177,9 @@ class DetailView: UIView {
         imgContainerConstraints()
         labelWidthConstraints()
         stvConstraints()
+        setUpNotification()
         memberIdTextField.delegate = self
+        
     }
     
     required init?(coder: NSCoder) {
@@ -212,6 +219,24 @@ class DetailView: UIView {
             totalStv.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             totalStv.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
         ])
+    }
+    
+    @objc func moveUpAction(){
+        totalStv.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: -20)
+        UIView.animate(withDuration: 0.2){
+            self.layoutIfNeeded()
+        }
+    }
+    
+    @objc func moveDownAction(){
+        totalStv.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10)
+        UIView.animate(withDuration: 0.2){
+            self.layoutIfNeeded()
+        }
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 }
 
