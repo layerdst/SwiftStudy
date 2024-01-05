@@ -94,10 +94,23 @@ extension ViewController : UITableViewDataSource {
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
+        detailVC.delegate = self
         let arr = memberList.getMemberList()
         detailVC.member = arr[indexPath.row]
         
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
+
+extension ViewController : MemberDelegate {
+    func addMember(_ member: Member) {
+        memberList.addMember(member)
+        tableView.reloadData()
+    }
+    
+    func updateMember(index: Int, _ member: Member) {
+        memberList.updateMember(index: index, member)
+        tableView.reloadData()
     }
 }
 

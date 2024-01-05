@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MemberDelegate : AnyObject {
+    func addMember(_ member : Member)
+    func updateMember(index : Int, _ member : Member)
+}
+
 struct Member {
     
     lazy var memberImg : UIImage? = {
@@ -33,8 +38,4 @@ struct Member {
         
         Member.memberNumbers += 1
     }
-    
-    
-    
-    
 }

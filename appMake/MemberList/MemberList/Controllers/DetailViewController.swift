@@ -12,6 +12,8 @@ class DetailViewController : UIViewController{
     
     private let detailView = DetailView()
     
+    weak var delegate : MemberDelegate?
+    
     var member : Member?
     
     override func loadView() {
@@ -60,9 +62,10 @@ class DetailViewController : UIViewController{
             var newMember = Member(name: name, age: age, phone: phoneNumner, address: address)
             newMember.memberImg = detailView.mainImgView.image
             
-            let idx = navigationController!.viewControllers.count - 2
-            let vc = navigationController?.viewControllers[idx] as! ViewController
-            vc.memberList.addMember(newMember)
+//            let idx = navigationController!.viewControllers.count - 2
+//            let vc = navigationController?.viewControllers[idx] as! ViewController
+//            vc.memberList.addMember(newMember)
+            delegate?.addMember(newMember)
             
         }else {
             member!.memberImg = detailView.mainImgView.image
@@ -74,11 +77,12 @@ class DetailViewController : UIViewController{
             
             detailView.member = member
             
-            let idx = navigationController!.viewControllers.count - 2
-            let vc = navigationController?.viewControllers[idx] as! ViewController
-            vc.memberList.updateMember(index: memberId, member!)
+//            let idx = navigationController!.viewControllers.count - 2
+//            let vc = navigationController?.viewControllers[idx] as! ViewController
+//            vc.memberList.updateMember(index: memberId, member!)
+            delegate?.updateMember(index: memberId, member!)
         }
-        
+    
         self.navigationController?.popViewController(animated: true)
     }
     
