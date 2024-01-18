@@ -23,7 +23,7 @@ struct Music : Codable {
     enum CodingKeys : String, CodingKey {
         case songName = "trackName"
         case artistName
-        case ablumName = "collectionName"
+        case albumName = "collectionName"
         case previewUrl
         case imgUrl = "artworkUrl1100"
         case releaseDate
