@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var musicArr : [Music] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +29,21 @@ class ViewController: UIViewController {
 
 extension ViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return self.musicArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = musicTableView.dequeueReusableCell(withIdentifier: Cell.musicCellIdentifier, for: indexPath) as! MusicCell
+        let cellIdx = musicArr[indexPath.row]
+        
+        cell.imgUrl = cellIdx.imgUrl
+        cell.artistNameLabel.text = cellIdx.songName
+        cell.ablumNameLabel.text = cellIdx.artistName
+        cell.releaseDateLabel.text = cellIdx.realeaseDateString
+        cell.songNameLabel.text = cellIdx.songName
+        
+        cell.selectionStyle = .none
+        return cell
     }
     
     
@@ -39,5 +51,9 @@ extension ViewController : UITableViewDataSource {
 
 
 extension ViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
 }
