@@ -21,6 +21,7 @@ final class NetworkManager{
     
     func fetchMusic(searchTerm : String, completion : @escaping NetworkCompletion ){
         let urlString = "\(MusicApi.requestUrl)\(MusicApi.mediaParam)&term=\(searchTerm)"
+        
         performRequest(with : urlString) { result in
             completion(result)
         }

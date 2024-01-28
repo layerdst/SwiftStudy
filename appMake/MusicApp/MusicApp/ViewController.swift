@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var musicArr : [Music] = []
+    var networkManager = NetworkManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +23,25 @@ class ViewController: UIViewController {
     func setupTableView(){
         musicTableView.dataSource = self
         musicTableView.delegate = self
+        
+        musicTableView.register(UINib(nibName: Cell.musicCellIdentifier, bundle: nil),
+                                forCellReuseIdentifier: Cell.musicCellIdentifier)
     }
     
     
+    func setupDatas(){
+        networkManager.fetchMusic(searchTerm: "jazz") { result in
+            switch result{
+            case .success(let musicDatas) :
+                self.musicArr = musicDatas
+                DispatchQueue.main.sync {
+                    self.musicTableView.reloadData()
+                }
+            case .failure(let err) :
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
 
 extension ViewController : UITableViewDataSource {
