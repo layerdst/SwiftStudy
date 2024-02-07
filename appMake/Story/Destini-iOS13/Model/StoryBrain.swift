@@ -16,7 +16,7 @@ struct StoryBrain {
         Story(title: "You find a treasure chest", choice1: "Opne it", choice2: "Check fo traps")
     ]
     
-    var storyNumber = 0
+    var storyNumber = 1
     
     mutating func nextStory(choice : String){
         
