@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     func setupTableView(){
         musicTableView.dataSource = self
+        
+        
         musicTableView.delegate = self
         
         musicTableView.register(UINib(nibName: Cell.musicCellIdentifier, bundle: nil),
